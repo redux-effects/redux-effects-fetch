@@ -1,0 +1,27 @@
+{
+  "name": "redux-fetch",
+  "version": "0.1.0",
+  "description": "Declarative data-fetching for redux",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashaffer/redux-fetch"
+  },
+  "keywords": [
+    "redux",
+    "fetch"
+  ],
+  "author": "ashaffer (http://github.com/ashaffer)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashaffer/redux-fetch/issues"
+  },
+  "homepage": "https://github.com/ashaffer/redux-fetch",
+  "dependencies": {
+    "es6-promise": "^3.0.2",
+    "isomorphic-fetch": "^2.1.1"
+  }
+}
