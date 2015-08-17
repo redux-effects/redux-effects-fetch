@@ -1,6 +1,6 @@
 {
   "name": "redux-fetch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Declarative data-fetching for redux",
   "main": "lib/index.js",
   "scripts": {
