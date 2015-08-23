@@ -1,5 +1,5 @@
 {
-  "name": "redux-fetch",
+  "name": "redux-effects-fetch",
   "version": "0.1.2",
   "description": "Declarative data-fetching for redux",
   "main": "lib/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ashaffer/redux-fetch"
+    "url": "https://github.com/ashaffer/redux-effects-fetch"
   },
   "keywords": [
     "redux",
@@ -17,11 +17,16 @@
   "author": "ashaffer (http://github.com/ashaffer)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ashaffer/redux-fetch/issues"
+    "url": "https://github.com/ashaffer/redux-effects-fetch/issues"
   },
-  "homepage": "https://github.com/ashaffer/redux-fetch",
+  "homepage": "https://github.com/ashaffer/redux-effects-fetch",
   "dependencies": {
     "es6-promise": "^3.0.2",
     "isomorphic-fetch": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-tape-runner": "^1.2.0",
+    "standard": "^5.1.0",
+    "tape": "^4.2.0"
   }
 }

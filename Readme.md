@@ -1,49 +1,71 @@
-# redux-fetch
+# redux-effects-fetch
 
 Declarative data fetching for [redux](https://github.com/rackt/redux)
 
-## Warning
+## Installation
 
-I am developing this still as we speak, I would not expect anything in here to work at the moment, or the documentation to be up to date.  I'll remove this if/when it's more stable.  It's just up here for my own use and so that people can get the gist of the concept and play around with it if they want.
+`npm install redux-effects-fetch`
 
 ## Usage
 
-Add `redux-fetch` to your redux middleware stack (preferably at the beginning).  Then, instead of imperatively calling `fetch` in your action creators, you can produce descriptions of the fetch you want to perform, and the middleware will execute it for you.
+This package is designed to be used in conjunction with [redux-effects](https://github.com/ashaffer/redux-effects).  Use it like this:
 
 ```javascript
-function createUser (user) {
-  return {
-    type: 'FETCH',
-    payload: {
-      method: 'POST',
-      url: '/user',
-      body: user
-    },
-    meta: {
-      then: logUserIn
-    }
-  }
-}
+import effects from 'redux-effects'
+import fetch from 'redux-effects-fetch'
 
-function logUserIn () {
-  return {
-    type: 'USER_DID_LOGIN'
-  }
-}
+applyMiddleware(effects(fetch))(createStore)
 ```
 
-## Coming soon
+## Action creators
 
-Less-verbose ways of doing this.  Going to try to create some creators for these things, so that the API can be just like fetch.  Something like:
+You can create your own action creators for this package, or you can use [declarative-fetch](https://github.com/ashaffer/declarative-fetch).  The action format is simple:
+
+`{type: 'EFFECT', payload: {type: 'FETCH', url, params}}`
+
+Where `url` and `params` are what you would pass as the first and second arguments to the native `fetch` API.  If you want your action creators to support some async flow control, you should wrap your action in a [declarative-promise](https://github.com/ashaffer/declarative-promise) (the [declarative-fetch](https://github.com/ashaffer/declarative-fetch) package does this for you).
+
+## Examples
+
+### Creating a user
 
 ```javascript
-var fetch = require('declarative-fetch')
+import fetch from 'declarative-fetch'
+import {createAction} from 'redux-actions'
 
-function createUser (user) {
-  return fetch('/user/', {
-    method: 'post',
+function signupUser (user) {
+  return fetch(api + '/user', {
+    method: 'POST',
     body: user
-  })
-  .then(logUserIn)
+  }).then(userDidLogin, setError)
 }
+
+const userDidLogin = createAction('USER_DID_LOGIN')
+const setError = createAction('SET_ERROR')
 ```
+
+This works exactly as if you were working with the native `fetch` API, except your request is actually being executed by middleware.
+
+### Handling loading states
+
+For this I recommend the use of [redux-multi](https://github.com/ashaffer/redux-multi), which allows you to dispatch more than one action at a time.
+
+```javascript
+import fetch from 'declarative-fetch'
+import {createAction} from 'redux-actions'
+
+function signupUser (user) {
+  return [
+    signupIsLoading(),
+    fetch(api + '/user', {
+      method: 'POST',
+      body: user
+    }).then(userDidLogin, setError)
+  ]
+}
+
+const signupIsLoading = createAction('SIGNUP_IS_LOADING')
+const userDidLogin = createAction('USER_DID_LOGIN')
+const setError = createAction('SET_ERROR')
+```
+
