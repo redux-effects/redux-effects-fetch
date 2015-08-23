@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ashaffer/redux-effects-fetch"
+    "url": "https://github.com/redux-effects/redux-effects-fetch"
   },
   "keywords": [
     "redux",
@@ -17,9 +17,9 @@
   "author": "ashaffer (http://github.com/ashaffer)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ashaffer/redux-effects-fetch/issues"
+    "url": "https://github.com/redux-effects/redux-effects-fetch/issues"
   },
-  "homepage": "https://github.com/ashaffer/redux-effects-fetch",
+  "homepage": "https://github.com/redux-effects/redux-effects-fetch",
   "dependencies": {
     "es6-promise": "^3.0.2",
     "isomorphic-fetch": "^2.1.1"
