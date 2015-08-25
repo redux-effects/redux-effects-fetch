@@ -2,20 +2,17 @@
  * Imports
  */
 
-var fetch = require('isomorphic-fetch')
+import fetch from 'isomorphic-fetch'
 
 /**
  * Fetch middleware
  */
 
-function fetchMiddleware (api) {
-  return function (next) {
-    return function (effect) {
-      return effect.type === 'FETCH'
-        ? fetch(effect.url, effect.params).then(checkStatus).then(deserialize, deserialize)
-        : next(effect)
-    }
-  }
+function fetchMiddleware ({dispatch, getState}) {
+  return next => effect =>
+    effect.type === 'FETCH'
+      ? fetch(effect.url, effect.params).then(checkStatus).then(deserialize, deserialize)
+      : next(effect)
 }
 
 /**
@@ -44,4 +41,4 @@ function checkStatus (res) {
  * Exports
  */
 
-module.exports = fetchMiddleware
+export default fetchMiddleware

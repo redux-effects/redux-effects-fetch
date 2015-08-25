@@ -4,7 +4,8 @@
   "description": "Declarative data-fetching for redux",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "rm -rf lib && babel src --out-dir lib",
+    "postpublish": "rm -rf lib"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "isomorphic-fetch": "^2.1.1"
   },
   "devDependencies": {
+    "babel": "^5.8.21",
     "babel-tape-runner": "^1.2.0",
     "standard": "^5.1.0",
     "tape": "^4.2.0"
