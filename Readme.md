@@ -37,7 +37,7 @@ function signupUser (user) {
   return fetch(api + '/user', {
     method: 'POST',
     body: user
-  }).then(userDidLogin, setError)
+  }).step(userDidLogin, setError)
 }
 
 const userDidLogin = createAction('USER_DID_LOGIN')
@@ -60,7 +60,7 @@ function signupUser (user) {
     fetch(api + '/user', {
       method: 'POST',
       body: user
-    }).then(userDidLogin, setError)
+    }).step(userDidLogin, setError)
   ]
 }
 
