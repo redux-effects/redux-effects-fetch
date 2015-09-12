@@ -9,10 +9,10 @@ import fetch from 'isomorphic-fetch'
  */
 
 function fetchMiddleware ({dispatch, getState}) {
-  return next => effect =>
-    effect.type === 'FETCH'
-      ? fetch(effect.url, effect.params).then(checkStatus).then(deserialize, deserialize)
-      : next(effect)
+  return next => action =>
+    action.type === 'FETCH'
+      ? fetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserialize)
+      : next(action)
 }
 
 /**
