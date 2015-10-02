@@ -20,7 +20,8 @@ function fetchMiddleware ({dispatch, getState}) {
  */
 
 function deserialize (res) {
-  return res.headers.get('Content-Type').indexOf('application/json') > -1
+  var header = res.headers.get('Content-Type');
+  return (header && header.indexOf('application/json') > -1)
     ? res.json()
     : res.text()
 }
