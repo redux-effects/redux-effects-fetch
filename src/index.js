@@ -2,7 +2,7 @@
  * Imports
  */
 
-import fetch from 'isomorphic-fetch'
+import realFetch from 'isomorphic-fetch'
 
 /**
  * Action types
@@ -17,7 +17,7 @@ const FETCH = 'EFFECT_FETCH'
 function fetchMiddleware ({dispatch, getState}) {
   return next => action =>
     action.type === FETCH
-      ? fetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserialize)
+      ? realFetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserialize)
       : next(action)
 }
 
@@ -48,7 +48,7 @@ function checkStatus (res) {
  * Action creator
  */
 
-function fetchAction (url = '', params = {}) {
+function fetch (url = '', params = {}) {
   return {
     type: FETCH,
     payload: {
@@ -64,5 +64,5 @@ function fetchAction (url = '', params = {}) {
 
 export default fetchMiddleware
 export {
-  fetch: fetchAction
+  fetch
 }
