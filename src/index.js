@@ -48,7 +48,7 @@ function checkStatus (res) {
  * Action creator
  */
 
-function fetch (url = '', params = {}) {
+function fetchAction (url = '', params = {}) {
   return {
     type: FETCH,
     payload: {
@@ -64,5 +64,5 @@ function fetch (url = '', params = {}) {
 
 export default fetchMiddleware
 export default {
-  fetch
+  fetch: fetchAction
 }
