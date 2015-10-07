@@ -63,6 +63,6 @@ function fetchAction (url = '', params = {}) {
  */
 
 export default fetchMiddleware
-export default {
+export {
   fetch: fetchAction
 }
