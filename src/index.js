@@ -5,12 +5,18 @@
 import fetch from 'isomorphic-fetch'
 
 /**
+ * Action types
+ */
+
+const FETCH = 'EFFECT_FETCH'
+
+/**
  * Fetch middleware
  */
 
 function fetchMiddleware ({dispatch, getState}) {
   return next => action =>
-    action.type === 'FETCH'
+    action.type === FETCH
       ? fetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserialize)
       : next(action)
 }
@@ -20,7 +26,7 @@ function fetchMiddleware ({dispatch, getState}) {
  */
 
 function deserialize (res) {
-  var header = res.headers.get('Content-Type');
+  const header = res.headers.get('Content-Type')
   return (header && header.indexOf('application/json') > -1)
     ? res.json()
     : res.text()
@@ -39,7 +45,24 @@ function checkStatus (res) {
 }
 
 /**
+ * Action creator
+ */
+
+function fetch (url = '', params = {}) {
+  return {
+    type: FETCH,
+    payload: {
+      url,
+      params
+    }
+  }
+}
+
+/**
  * Exports
  */
 
 export default fetchMiddleware
+export default {
+  fetch
+}
