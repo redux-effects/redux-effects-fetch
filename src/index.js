@@ -17,7 +17,7 @@ const FETCH = 'EFFECT_FETCH'
 function fetchMiddleware ({dispatch, getState}) {
   return next => action =>
     action.type === FETCH
-      ? realFetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserialize)
+      ? realFetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserializeError)
       : next(action)
 }
 
@@ -30,6 +30,19 @@ function deserialize (res) {
   return (header && header.indexOf('application/json') > -1)
     ? res.json()
     : res.text()
+}
+
+/**
+ * Deserialize the request body, then return a 
+ * new rejected promise so the failure chain
+ * stays failed.
+ */
+
+function deserializeError(res) {
+  // new rejected Promise to go down failure chain
+  return deserialize(res).then(function(body){
+    throw body;
+  });
 }
 
 /**
