@@ -33,16 +33,16 @@ function deserialize (res) {
 }
 
 /**
- * Deserialize the request body, then return a 
+ * Deserialize the request body, then return a
  * new rejected promise so the failure chain
  * stays failed.
  */
 
-function deserializeError(res) {
+function deserializeError (res) {
   // new rejected Promise to go down failure chain
-  return deserialize(res).then(function(body){
-    throw body;
-  });
+  return deserialize(res).then(function (body) {
+    throw body
+  })
 }
 
 /**
