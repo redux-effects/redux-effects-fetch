@@ -14,7 +14,7 @@ This package is designed to be used in conjunction with [redux-effects](https://
 import effects from 'redux-effects'
 import fetch from 'redux-effects-fetch'
 
-applyMiddleware(effects(fetch))(createStore)
+applyMiddleware(effects, fetch)(createStore)
 ```
 
 ## Action creators
