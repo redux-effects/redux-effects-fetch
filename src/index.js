@@ -17,8 +17,24 @@ const FETCH = 'EFFECT_FETCH'
 function fetchMiddleware ({dispatch, getState}) {
   return next => action =>
     action.type === FETCH
-      ? realFetch(action.payload.url, action.payload.params).then(checkStatus).then(deserialize, deserialize)
+      ? realFetch(action.payload.url, action.payload.params).then(checkStatus).then(createResponse, createResponse)
       : next(action)
+}
+
+/**
+ * Create a plain JS response object.  Note that 'headers' is still a Headers
+ * object (https://developer.mozilla.org/en-US/docs/Web/API/Headers), and must be
+ * read using that API.
+ */
+
+function createResponse (res) {
+  return deserialize(res).then(value => ({
+    url: res.url,
+    status: res.status,
+    statusText: res.statusText,
+    headers: res.headers,
+    value: value
+  }))
 }
 
 /**

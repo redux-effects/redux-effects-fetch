@@ -8,7 +8,7 @@ Declarative data fetching for [redux](https://github.com/rackt/redux)
 
 ## Usage
 
-This package is designed to be used in conjunction with [redux-effects](https://github.com/redux-effects/redux-effects).  Use it like this:
+This package is designed to be used in conjunction with [redux-effects](https://github.com/redux-effects/redux-effects).  Install it like this:
 
 ```javascript
 import effects from 'redux-effects'
@@ -17,7 +17,9 @@ import fetch from 'redux-effects-fetch'
 applyMiddleware(effects(fetch))(createStore)
 ```
 
-## Action creators
+This will enable your middleware to support fetch actions.
+
+## Actions
 
 You can create your own action creators for this package, or you can use the one that comes bundled with it.  The action format is simple:
 
@@ -31,7 +33,13 @@ You can create your own action creators for this package, or you can use the one
 }
 ```
 
-Where `url` and `params` are what you would pass as the first and second arguments to the native `fetch` API.  If you want your action creators to support some async flow control, you should use [redux-effects](https://github.com/redux-effects/redux-effects)' `bind` function.
+Where `url` and `params` are what you would pass as the first and second arguments to the native `fetch` API.  If you want your action creators to support some async flow control, you should use [redux-effects](https://github.com/redux-effects/redux-effects)' `bind` function.  If you do, your fetch action will return you an object with the following properties:
+
+  * `url` - The url of the endpoint you requested (as returned by the request)
+  * `status` - The numerical status code of the response (e.g. 200)
+  * `statusText` - The text version of the status (e.g. 'OK')
+  * `headers` - A [Headers object](https://developer.mozilla.org/en-US/docs/Web/API/Headers)
+  * `value` - The deserialized value of the response.  This may be an object or string, depending on the type of response (json or text).
 
 ## Examples
 
@@ -46,7 +54,7 @@ function signupUser (user) {
   return bind(fetch(api + '/user', {
     method: 'POST',
     body: user
-  }), userDidLogin, setError)
+  }), ({value}) => userDidLogin(value), ({value}) => setError(value))
 }
 
 const userDidLogin = createAction('USER_DID_LOGIN')
@@ -70,7 +78,7 @@ function signupUser (user) {
     bind(fetch(api + '/user', {
       method: 'POST',
       body: user
-    }), userDidLogin, setError)
+    }), ({value}) => userDidLogin(value), ({value}) => setError(value))
   ]
 }
 
