@@ -29,3 +29,8 @@ test('should work', t => {
     t.end()
   })
 })
+
+test('should reject on invalid response', t => {
+  t.plan(1)
+  run(fetch('https://www.google.com/notAValidUrl')).then(() => t.fail(), (res) => t.pass())
+})
