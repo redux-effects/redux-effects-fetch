@@ -53,10 +53,10 @@ function createErrorResponse (res) {
  */
 
 function deserialize (res) {
-  const header = res.headers.get('Content-Type')
-  return (header && header.indexOf('application/json') > -1)
-    ? res.json()
-    : res.text()
+  const header = res.headers.get('Content-Type') || ''
+  if (header.indexOf('application/json') > -1) return res.json()
+  if (header.indexOf('application/octet-stream') > -1) return res.arrayBuffer()
+  return res.text()
 }
 
 /**
