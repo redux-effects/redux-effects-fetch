@@ -92,5 +92,6 @@ function fetch (url = '', params = {}) {
 
 export default fetchMiddleware
 export {
-  fetch
+  fetch,
+  FETCH
 }
