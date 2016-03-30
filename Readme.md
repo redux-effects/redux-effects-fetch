@@ -86,3 +86,10 @@ const signupIsLoading = createAction('SIGNUP_IS_LOADING')
 const userDidLogin = createAction('USER_DID_LOGIN')
 const setError = createAction('SET_ERROR')
 ```
+
+## Local development
+
+If you want to develope your frontend application without any REST server running,
+you can use [redux-effects-fetch-fixture](https://github.com/team-boris/redux-effects-fetch-fixture) to define
+fixtures for your `fetch` requests.
+
