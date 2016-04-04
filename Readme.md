@@ -12,9 +12,10 @@ This package is designed to be used in conjunction with [redux-effects](https://
 
 ```javascript
 import effects from 'redux-effects'
-import fetch from 'redux-effects-fetch'
+import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
 
-applyMiddleware(effects, fetch)(createStore)
+// fetchEncodeJSON is optional
+applyMiddleware(effects, fetch, fetchEncodeJSON)(createStore)
 ```
 
 This will enable your middleware to support fetch actions.
@@ -92,4 +93,3 @@ const setError = createAction('SET_ERROR')
 If you want to develope your frontend application without any REST server running,
 you can use [redux-effects-fetch-fixture](https://github.com/team-boris/redux-effects-fetch-fixture) to define
 fixtures for your `fetch` requests.
-
