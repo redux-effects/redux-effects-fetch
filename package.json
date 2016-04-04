@@ -1,6 +1,6 @@
 {
   "name": "redux-effects-fetch",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Declarative data-fetching for redux",
   "main": "lib/index.js",
   "scripts": {
