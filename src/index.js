@@ -3,6 +3,7 @@
  */
 
 import realFetch from 'isomorphic-fetch'
+import fetchEncodeJSON from './fetchEncodeJSON'
 
 /**
  * Action types
@@ -93,5 +94,6 @@ function fetch (url = '', params = {}) {
 export default fetchMiddleware
 export {
   fetch,
-  FETCH
+  FETCH,
+  fetchEncodeJSON
 }
