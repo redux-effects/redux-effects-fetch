@@ -2,7 +2,7 @@
  * Imports
  */
 
-import realFetch from 'isomorphic-fetch'
+import 'isomorphic-fetch'
 import fetchEncodeJSON from './fetchEncodeJSON'
 
 /**
@@ -18,7 +18,7 @@ const FETCH = 'EFFECT_FETCH'
 function fetchMiddleware ({dispatch, getState}) {
   return next => action =>
     action.type === FETCH
-      ? realFetch(action.payload.url, action.payload.params).then(checkStatus).then(createResponse, createErrorResponse)
+      ? fetch(action.payload.url, action.payload.params).then(checkStatus).then(createResponse, createErrorResponse)
       : next(action)
 }
 
@@ -77,7 +77,7 @@ function checkStatus (res) {
  * Action creator
  */
 
-function fetch (url = '', params = {}) {
+function fetchActionCreator (url = '', params = {}) {
   return {
     type: FETCH,
     payload: {
@@ -93,7 +93,7 @@ function fetch (url = '', params = {}) {
 
 export default fetchMiddleware
 export {
-  fetch,
+  fetchActionCreator as fetch,
   FETCH,
   fetchEncodeJSON
 }
