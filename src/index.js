@@ -18,8 +18,18 @@ const FETCH = 'EFFECT_FETCH'
 function fetchMiddleware ({dispatch, getState}) {
   return next => action =>
     action.type === FETCH
-      ? fetch(action.payload.url, action.payload.params).then(checkStatus).then(createResponse, createErrorResponse)
+      ? g().fetch(action.payload.url, action.payload.params).then(checkStatus).then(createResponse, createErrorResponse)
       : next(action)
+}
+
+/**
+ * g - Return the global object (in the browser or node)
+ */
+
+function g () {
+  return typeof window === 'undefined'
+    ? global
+    : window
 }
 
 /**

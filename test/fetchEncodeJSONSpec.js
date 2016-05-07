@@ -39,7 +39,7 @@ test('should ignore requests whose body is a string', t => {
   })
 })
 
-test.only('should encode the body if it is an object', t => {
+test('should encode the body if it is an object', t => {
   const request = {
     method: 'POST',
     body: {message: 'Hello world!'}
