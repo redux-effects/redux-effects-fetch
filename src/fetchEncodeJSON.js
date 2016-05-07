@@ -51,7 +51,7 @@ function shallConvertToJSON (params) {
 function maybeAddAcceptHeader (headers = {}) {
   return headers.hasOwnProperty('Accept')
     ? headers
-    : {...headers, 'Accept': 'application/json'}
+    : {'Accept': 'application/json', 'Content-Type': 'application/json;charset=UTF-8', ...headers}
 }
 
 function maybeConvertBodyToJSON (action) {
