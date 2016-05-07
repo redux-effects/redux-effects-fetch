@@ -48,7 +48,7 @@ function shallConvertToJSON (params) {
  * header.
  */
 
-function maybeAddAcceptHeader (headers) {
+function maybeAddAcceptHeader (headers = {}) {
   return headers.hasOwnProperty('Accept')
     ? headers
     : {...headers, 'Accept': 'application/json'}
