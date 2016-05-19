@@ -52,7 +52,6 @@ function createResponse (res) {
       value: err
     }
   })
-
 }
 
 /**
@@ -61,9 +60,11 @@ function createResponse (res) {
  */
 
 function createErrorResponse (res) {
-  return createResponse(res).then(function (res) {
-    throw res
-  })
+  const q = res.headers
+    ? createResponse(res)
+    : Promise.resolve(res)
+
+  return q.then(function (res) { throw res })
 }
 
 /**
