@@ -1,6 +1,6 @@
 # redux-effects-fetch
 
-Declarative data fetching for [redux](https://github.com/rackt/redux)
+Declarative data fetching for [redux](https://github.com/rackt/redux). Build on top of [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) so it works everywhere.
 
 ## Installation
 
