@@ -41,6 +41,7 @@ Where `url` and `params` are what you would pass as the first and second argumen
   * `statusText` - The text version of the status (e.g. 'OK')
   * `headers` - A [Headers object](https://developer.mozilla.org/en-US/docs/Web/API/Headers)
   * `value` - The deserialized value of the response.  This may be an object or string, depending on the type of response (json or text).
+  * `timeout` - The numerical value (in ms) which is used for rejecting request promise if it takes longer time to complete than the value of this property
 
 ## Examples
 
