@@ -47,7 +47,7 @@ test('should work', t => {
 
 test('should reject on timeout', t => {
   t.plan(1)
-  run(fetch(urlTimeout, { timeout: 1000 })).then(() => t.fail(), (res) => t.pass())
+  run(fetch(urlTimeout, {}, { timeout: 1000 })).then(() => t.fail(), (res) => t.pass())
 })
 
 test('should reject on invalid response', t => {
