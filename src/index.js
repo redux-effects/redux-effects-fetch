@@ -16,12 +16,27 @@ const FETCH = 'EFFECT_FETCH'
  */
 
 function fetchMiddleware ({dispatch, getState}) {
-  return next => action =>
+ return next => action =>
     action.type === FETCH
-      ? g().fetch(action.payload.url, action.payload.params)
+      ? getRequestPromise(action.payload, action.meta)
           .then(checkStatus)
           .then(createResponse, createErrorResponse)
       : next(action)
+}
+
+function getRequestPromise ({ params, url }, meta) {
+  const fetchPromise = g().fetch(url, params)
+
+  if (meta && typeof meta.timeout === 'number') {
+    const rejectOnTimeout = new Promise((_, reject) => {
+      const error = new Error(`Request to ${url} timed out`)
+      setTimeout(() => reject(error), meta.timeout)
+    })
+
+    return Promise.race([fetchPromise, rejectOnTimeout])
+  }
+
+  return fetchPromise
 }
 
 /**
@@ -95,13 +110,14 @@ function checkStatus (res) {
  * Action creator
  */
 
-function fetchActionCreator (url = '', params = {}) {
+function fetchActionCreator (url = '', params = {}, meta = {}) {
   return {
     type: FETCH,
     payload: {
       url,
       params
-    }
+    },
+    meta
   }
 }
 

@@ -30,11 +30,14 @@ You can create your own action creators for this package, or you can use the one
   payload: {
     url,
     params
-  }
+  },
+  meta: { timeout }
 }
 ```
 
-Where `url` and `params` are what you would pass as the first and second arguments to the native `fetch` API.  If you want your action creators to support some async flow control, you should use [redux-effects](https://github.com/redux-effects/redux-effects)' `bind` function.  If you do, your fetch action will return you an object with the following properties:
+Where `url` and `params` are what you would pass as the first and second arguments to the native `fetch` API. Third argument is action meta: `timeout` - the numerical value (in ms) which is used for rejecting request promise if it takes longer time to complete than the value of this property.
+
+If you want your action creators to support some async flow control, you should use [redux-effects](https://github.com/redux-effects/redux-effects)' `bind` function.  If you do, your fetch action will return you an object with the following properties:
 
   * `url` - The url of the endpoint you requested (as returned by the request)
   * `status` - The numerical status code of the response (e.g. 200)
@@ -79,7 +82,7 @@ function signupUser (user) {
     bind(fetch(api + '/user', {
       method: 'POST',
       body: user
-    }), ({value}) => userDidLogin(value), ({value}) => setError(value))
+    }, { timeout: 10000 }), ({value}) => userDidLogin(value), ({value}) => setError(value))
   ]
 }
 
