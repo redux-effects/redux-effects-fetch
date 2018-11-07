@@ -2,7 +2,7 @@
  * Imports
  */
 
-import {FETCH} from '.'
+import {FETCH} from './fetch'
 
 /**
  * @see https://github.com/lodash/lodash/blob/4.8.0/lodash.js#L10705
